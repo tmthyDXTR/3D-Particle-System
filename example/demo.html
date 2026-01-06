@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Renderer Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; font-family: sans-serif; }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .demo-card {
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        
+        .demo-card canvas {
+            width: 100%;
+            height: 250px;
+            display: block;
+        }
+        
+        .demo-card .info {
+            padding: 15px;
+            color: #fff;
+        }
+        
+        .demo-card h3 {
+            margin: 0 0 8px;
+            color: #4ade80;
+        }
+        
+        .demo-card p {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        /* Full-screen hero example */
+        .hero {
+            height: 100vh;
+            position: relative;
+        }
+        
+        .hero canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #fff;
+            text-align: center;
+            pointer-events: none;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Example 1: Full-screen hero with hover effect -->
+<section class="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-content">
+        <h1>Particle Renderer</h1>
+        <p>Move your mouse to rotate • Click to morph</p>
+    </div>
+</section>
+
+<!-- Example 2: Card grid with different configurations -->
+<section class="demo-grid">
+    <div class="demo-card">
+        <canvas id="card1"></canvas>
+        <div class="info">
+            <h3>Auto Rotate</h3>
+            <p>Continuous Y-axis rotation</p>
+        </div>
+    </div>
+    
+    <div class="demo-card">
+        <canvas id="card2"></canvas>
+        <div class="info">
+            <h3>Hover Rotate</h3>
+            <p>Mouse controls rotation angle</p>
+        </div>
+    </div>
+    
+    <div class="demo-card">
+        <canvas id="card3"></canvas>
+        <div class="info">
+            <h3>Multi-Frame Morph</h3>
+            <p>Click to cycle through frames</p>
+        </div>
+    </div>
+</section>
+
+<script src="particle-renderer.js"></script>
+<script>
+    // Helper to set canvas size
+    function setupCanvas(canvas) {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * window.devicePixelRatio;
+        canvas.height = rect.height * window.devicePixelRatio;
+    }
+
+    // Example 1: Hero with hover rotation
+    const heroCanvas = document.getElementById('heroCanvas');
+    setupCanvas(heroCanvas);
+    
+    const heroRenderer = new ParticleRenderer(heroCanvas, {
+        autoRotate: false,
+        hoverRotate: true,
+        hoverMax: 25,
+        particleSize: 3,
+        scale: 2,
+        depthFog: true
+    });
+    
+    // Load frames and start
+    heroRenderer.loadFrames('example-particle-frames.json.json').then(() => {
+        heroRenderer.start();
+    });
+    
+    // Click to morph
+    heroCanvas.addEventListener('click', () => heroRenderer.next());
+    
+    // Resize handler
+    window.addEventListener('resize', () => {
+        setupCanvas(heroCanvas);
+        heroRenderer.resize();
+    });
+
+    // Example 2: Card 1 - Auto rotate
+    const card1 = document.getElementById('card1');
+    setupCanvas(card1);
+    
+    const renderer1 = new ParticleRenderer(card1, {
+        autoRotate: true,
+        rotateY: 40,
+        particleSize: 2,
+        scale: 0.8
+    });
+    renderer1.loadFrames('example-particle-frames.json.json').then(() => renderer1.start());
+
+    // Example 3: Card 2 - Hover rotate
+    const card2 = document.getElementById('card2');
+    setupCanvas(card2);
+    
+    const renderer2 = new ParticleRenderer(card2, {
+        autoRotate: false,
+        hoverRotate: true,
+        hoverMax: 45,
+        particleSize: 2,
+        scale: 0.8
+    });
+    renderer2.loadFrames('example-particle-frames.json.json').then(() => renderer2.start());
+
+    // Example 4: Card 3 - Click to morph
+    const card3 = document.getElementById('card3');
+    setupCanvas(card3);
+    
+    const renderer3 = new ParticleRenderer(card3, {
+        autoRotate: true,
+        rotateY: 20,
+        morphSpeed: 0.03,
+        particleSize: 2,
+        scale: 0.8
+    });
+    renderer3.loadFrames('example-particle-frames.json.json').then(() => renderer3.start());
+    card3.addEventListener('click', () => renderer3.next());
+</script>
+
+</body>
+</html>
