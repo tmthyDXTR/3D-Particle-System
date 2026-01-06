@@ -2,6 +2,8 @@
 
 An interactive 3D particle system with frame morphing, built with vanilla JavaScript and Canvas. Create particle animations from images/SVGs and embed them in any website.
 
+[Demo page](https://tmthydxtr.github.io/3D-Particle-System/)
+
 ![Example Animation](docs/example.gif)
 
 ## Files
@@ -101,7 +103,7 @@ renderer.isMorphing        // True during morph animation
 
 ## Examples
 
-See `demo.html` for complete examples including:
-- Full-screen hero with hover rotation
+See `https://tmthydxtr.github.io/3D-Particle-System/` for complete examples including:
+- Full-screen example with hover rotation and frame morphing
 - Card grid with different configurations
 - Click-to-morph interactions
