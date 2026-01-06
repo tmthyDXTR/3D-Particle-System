@@ -9,7 +9,7 @@ An interactive 3D particle system with frame morphing, built with vanilla JavaSc
 | File | Description |
 |------|-------------|
 | `particle-system.html` | Full editor with controls for creating particle frames |
-| `particle-renderer.js` | Lightweight module (~420 lines, nice) for embedding in projects |
+| `docs/particle-renderer.js` | Lightweight module (~420 lines, nice) for embedding in projects |
 | `docs/index.html` | Usage examples (cards, hover effects) |
 
 ## Quick Start
