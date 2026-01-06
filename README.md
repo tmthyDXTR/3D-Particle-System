@@ -2,7 +2,7 @@
 
 An interactive 3D particle system with frame morphing, built with vanilla JavaScript and Canvas. Create particle animations from images/SVGs and embed them in any website.
 
-![Example Animation](example/example.gif)
+![Example Animation](docs/example.gif)
 
 ## Files
 
@@ -10,7 +10,7 @@ An interactive 3D particle system with frame morphing, built with vanilla JavaSc
 |------|-------------|
 | `particle-system.html` | Full editor with controls for creating particle frames |
 | `particle-renderer.js` | Lightweight module (~420 lines, nice) for embedding in projects |
-| `demo.html` | Usage examples (hero section, cards, hover effects) |
+| `docs/index.html` | Usage examples (cards, hover effects) |
 
 ## Quick Start
 
